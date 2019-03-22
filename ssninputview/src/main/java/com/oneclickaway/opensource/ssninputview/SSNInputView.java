@@ -13,9 +13,9 @@ import android.view.View;
 
 public class SSNInputView extends AppCompatEditText {
 
-    int MAX_LENGTH = 11;
-
     private static final String TAG = "SSNInputView";
+    private int maxLength = 11;
+
     public SSNInputView(Context context) {
         super(context);
         setSSNPattern();
@@ -34,7 +34,7 @@ public class SSNInputView extends AppCompatEditText {
 
     void setSSNPattern(){
 
-        setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
+        setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
         setKeyListener(new DigitsKeyListener());
         setOnClickListener();
@@ -67,7 +67,6 @@ public class SSNInputView extends AppCompatEditText {
                     setTextAndSelection(middleWare);
                 }
 
-
                 if (!ediTextString.contains("-") && length > 6 ){
                     setDashesForSSN(ediTextString);
                     return;
@@ -76,14 +75,10 @@ public class SSNInputView extends AppCompatEditText {
                     return;
                 }
 
-
                 if (length > 3  && ediTextString.charAt(3) != '-'){
-                    Log.d(TAG, "Caught inner" + length);
                     swapAndReturnString(ediTextString, 3);
                 }
-
                 if (length > 6 && ediTextString.charAt(6) != '-'){
-                    Log.d(TAG, "Caught outer" + length);
                     swapAndReturnString(ediTextString, 6);
                 }
 
@@ -139,6 +134,6 @@ public class SSNInputView extends AppCompatEditText {
     }
 
     public void setMaximumLength(int maxLength) {
-        this.MAX_LENGTH = MAX_LENGTH;
+        this.maxLength = maxLength;
     }
 }
